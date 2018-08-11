@@ -14,8 +14,9 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    void setText(QString text);
 public slots:
-    void Translate();
+    void call();
 signals:
 private:
     Ui::MainWindow *ui;

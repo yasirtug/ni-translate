@@ -26,11 +26,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    keycatcher.cpp
+    keycatcher.cpp \
+    utils.cpp
 
 HEADERS += \
         mainwindow.h \
-    keycatcher.h
+    keycatcher.h \
+    utils.h
 
 FORMS += \
         mainwindow.ui

@@ -36,7 +36,7 @@ void KeyCatcher::process()
         {
             if (combo == true && event.time.tv_sec - t < 2)
             {
-                Translate();
+                call();
             }
             t = event.time.tv_sec;
             combo = true;

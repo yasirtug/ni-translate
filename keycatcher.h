@@ -9,7 +9,7 @@ class KeyCatcher : public QObject
 public:
 
 signals:
-    void Translate();
+    void call();
     void finished();
 public slots:
     void process();
