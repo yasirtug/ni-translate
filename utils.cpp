@@ -30,8 +30,8 @@ struct result Utils::getResult()
     return result;
 }
 
-void Utils::translate(std::string text)
+void Utils::translate(std::string text, std::string dest, std::string src)
 {
-    std::string cmd = "python3 translate.py \"" + text + "\" tr";
+    std::string cmd = "python3 translate.py \"" + text + "\" " + dest + " " + src;
     system(cmd.c_str());
 }

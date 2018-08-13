@@ -6,30 +6,57 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>373</width>
+    <height>205</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>ni-translate</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
-    <property name="spacing">
-     <number>7</number>
-    </property>
-    <property name="leftMargin">
-     <number>7</number>
-    </property>
-    <property name="topMargin">
-     <number>7</number>
-    </property>
-    <property name="rightMargin">
-     <number>7</number>
-    </property>
-    <property name="bottomMargin">
-     <number>7</number>
-    </property>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QComboBox" name="srcBox">
+        <property name="maximumSize">
+         <size>
+          <width>72</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <item>
+         <property name="text">
+          <string>&lt;auto&gt;</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QComboBox" name="destBox">
+        <property name="maximumSize">
+         <size>
+          <width>72</width>
+          <height>16777215</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
     <item>
      <widget class="QTextBrowser" name="resultText"/>
     </item>

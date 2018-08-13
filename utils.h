@@ -15,7 +15,7 @@ class Utils
 public:
     QMap<std::string, std::string> getLanguages();
     struct result getResult();
-    void translate(std::string text);
+    void translate(std::string text, std::string dest, std::string src = "auto");
 };
 
 #endif // UTILS_H

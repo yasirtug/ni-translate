@@ -7,6 +7,9 @@
 #include "utils.h"
 #include <QDebug>
 #include <iostream>
+#include <QSettings>
+#include <QStringList>
+#include <QProcess>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -24,14 +27,43 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(thread, SIGNAL (finished()), thread, SLOT (deleteLater()));
     thread->start();
 
-    QMap<std::string, std::string> map = Utils().getLanguages();
+    map = Utils().getLanguages();
+    int length = map.size();
+    for(int i = 0; i < length; ++i){
+        this->ui->srcBox->addItem(QString::fromStdString(map.values()[i]));
+        this->ui->destBox->addItem(QString::fromStdString(map.values()[i]));
+    }
+
+    QString src = QSettings().value("src").toString();
+    QString dest = QSettings().value("dest").toString();
+
+    this->ui->srcBox->setCurrentText(src);
+    this->ui->destBox->setCurrentText(dest);
+
+    connect(this->ui->srcBox, SIGNAL(currentTextChanged(QString)), this, SLOT(srcBoxChange(QString)));
+    connect(this->ui->destBox, SIGNAL(currentTextChanged(QString)), this, SLOT(destBoxChange(QString)));
+}
+
+void MainWindow::srcBoxChange(QString text)
+{
+    QSettings().setValue("src", text);
+}
+void MainWindow::destBoxChange(QString text)
+{
+    QSettings().setValue("dest", text);
 }
 
 void MainWindow::call()
 {
     QString selection = QApplication::clipboard()->text(QClipboard::Selection);
 
-    Utils().translate(selection.toStdString());
+    std::string src = this->ui->srcBox->currentText().toStdString();
+    std::string dest = this->ui->destBox->currentText().toStdString();
+
+    src = map.key(src);
+    dest = map.key(dest);
+
+    Utils().translate(selection.toStdString(), dest, src);
 
     struct result result = Utils().getResult();
     this->ui->resultText->setText(result.text);
