@@ -55,7 +55,6 @@ void MainWindow::destBoxChange(QString text)
 }
 void MainWindow::swapButtonClicked(bool a)
 {
-    std::cout << "oldu" << std::flush;
     int temp;
     temp = this->ui->srcBox->currentIndex();
     this->ui->srcBox->setCurrentIndex(this->ui->destBox->currentIndex() + 1);
