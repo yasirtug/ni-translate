@@ -66,6 +66,8 @@ void MainWindow::call()
     Utils().translate(selection.toStdString(), dest, src);
 
     struct result result = Utils().getResult();
+
+
     this->ui->resultText->setText(result.text);
 
     this->show();

@@ -1,14 +1,15 @@
 from googletrans import Translator
-import sys
 
 translator = Translator()
 
-length = len(sys.argv)
-dest = 'en' if (length < 3) else sys.argv[2]
-src = 'auto' if (length < 4) else sys.argv[3]
+file = open(".ask", "r")
+dest = file.readline()[:-1]
+src = file.readline()[:-1]
+text = file.read()
+file.close()
 
-result = translator.translate(sys.argv[1], dest, src)
+result = translator.translate(text, dest, src)
 
 file = open(".result", "w")
 file.write(result.dest + '\n' + result.src + '\n' + result.text)
-file.close()
+file.close()    

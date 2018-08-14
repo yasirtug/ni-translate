@@ -32,6 +32,10 @@ struct result Utils::getResult()
 
 void Utils::translate(std::string text, std::string dest, std::string src)
 {
-    std::string cmd = "python3 translate.py \"" + text + "\" " + dest + " " + src;
+    FILE* ask = fopen(".ask", "w+");
+    fprintf(ask, "%s\n%s\n%s", dest.c_str(), src.c_str(), text.c_str());
+    fclose(ask);
+
+    std::string cmd = "python3 translate.py";
     system(cmd.c_str());
 }
