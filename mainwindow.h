@@ -19,8 +19,9 @@ public:
     QMap<std::string, std::string> map;
 public slots:
     void call();
-    void srcBoxChange(QString text);
-    void destBoxChange(QString text);
+    void srcBoxChange(QString);
+    void destBoxChange(QString);
+    void swapButtonClicked(bool);
 signals:
 private:
     Ui::MainWindow *ui;

@@ -29,7 +29,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     map = Utils().getLanguages();
     int length = map.size();
-    for(int i = 0; i < length; ++i){
+    for(int i = 0; i < length; ++i)
+    {
         this->ui->srcBox->addItem(QString::fromStdString(map.values()[i]));
         this->ui->destBox->addItem(QString::fromStdString(map.values()[i]));
     }
@@ -39,9 +40,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->ui->srcBox->setCurrentText(src);
     this->ui->destBox->setCurrentText(dest);
-
     connect(this->ui->srcBox, SIGNAL(currentTextChanged(QString)), this, SLOT(srcBoxChange(QString)));
     connect(this->ui->destBox, SIGNAL(currentTextChanged(QString)), this, SLOT(destBoxChange(QString)));
+    connect(this->ui->swapButton, SIGNAL(clicked(bool)), this, SLOT(swapButtonClicked(bool)));
 }
 
 void MainWindow::srcBoxChange(QString text)
@@ -51,6 +52,14 @@ void MainWindow::srcBoxChange(QString text)
 void MainWindow::destBoxChange(QString text)
 {
     QSettings().setValue("dest", text);
+}
+void MainWindow::swapButtonClicked(bool a)
+{
+    std::cout << "oldu" << std::flush;
+    int temp;
+    temp = this->ui->srcBox->currentIndex();
+    this->ui->srcBox->setCurrentIndex(this->ui->destBox->currentIndex() + 1);
+    this->ui->destBox->setCurrentIndex(temp - 1);
 }
 
 void MainWindow::call()
