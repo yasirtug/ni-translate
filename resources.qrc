@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/test">
+    <qresource prefix="/">
         <file>swap.png</file>
     </qresource>
 </RCC>

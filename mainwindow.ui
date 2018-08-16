@@ -52,7 +52,7 @@
         </property>
         <property name="icon">
          <iconset resource="resources.qrc">
-          <normaloff>:/test/swap.png</normaloff>:/test/swap.png</iconset>
+          <normaloff>:/swap.png</normaloff>:/swap.png</iconset>
         </property>
        </widget>
       </item>
