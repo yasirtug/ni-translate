@@ -13,9 +13,11 @@ struct result{
 class Utils
 {
 public:
+    Utils();
     QMap<std::string, std::string> getLanguages();
     struct result getResult();
     void translate(std::string text, std::string dest, std::string src = "auto");
+    std::string exe_path;
 };
 
 #endif // UTILS_H
