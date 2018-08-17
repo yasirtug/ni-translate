@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
         this->ui->srcBox->addItem(QString::fromStdString(map.values()[i]));
         this->ui->destBox->addItem(QString::fromStdString(map.values()[i]));
     }
-
+    map.insert("auto", "<auto>");
     QString src = QSettings().value("src").toString();
     QString dest = QSettings().value("dest").toString();
 
@@ -69,6 +69,7 @@ void MainWindow::call()
     std::string dest = this->ui->destBox->currentText().toStdString();
 
     src = map.key(src);
+    std::cout << src << std::flush;
     dest = map.key(dest);
 
     Utils().translate(selection.toStdString(), dest, src);
