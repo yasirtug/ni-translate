@@ -27,15 +27,19 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     keycatcher.cpp \
-    utils.cpp
+    utils.cpp \
+    settingswindow.cpp
 
 HEADERS += \
         mainwindow.h \
     keycatcher.h \
-    utils.h
+    utils.h \
+    settingswindow.h \
+
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    settingswindow.ui \
 
 RESOURCES += \
     resources.qrc

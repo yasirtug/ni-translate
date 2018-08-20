@@ -17,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    sw = new SettingsWindow();
+    sw->setWindowModality(Qt::ApplicationModal);
     QThread* thread = new QThread;
     KeyCatcher* catcher = new KeyCatcher();
     catcher->moveToThread(thread);
@@ -43,17 +45,26 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this->ui->srcBox, SIGNAL(currentTextChanged(QString)), this, SLOT(srcBoxChange(QString)));
     connect(this->ui->destBox, SIGNAL(currentTextChanged(QString)), this, SLOT(destBoxChange(QString)));
     connect(this->ui->swapButton, SIGNAL(clicked(bool)), this, SLOT(swapButtonClicked(bool)));
+    connect(this->ui->settingsButton, SIGNAL(clicked(bool)), this, SLOT(settingsButtonClicked(bool)));
+}
+
+void MainWindow::settingsButtonClicked(bool)
+{
+    sw->show();
+    sw->currentSizeInformation(this->width(), this->height());
 }
 
 void MainWindow::srcBoxChange(QString text)
 {
     QSettings().setValue("src", text);
 }
+
 void MainWindow::destBoxChange(QString text)
 {
     QSettings().setValue("dest", text);
 }
-void MainWindow::swapButtonClicked(bool a)
+
+void MainWindow::swapButtonClicked(bool)
 {
     int temp;
     temp = this->ui->srcBox->currentIndex();
@@ -69,11 +80,9 @@ void MainWindow::call()
     std::string dest = this->ui->destBox->currentText().toStdString();
 
     src = map.key(src);
-    std::cout << src << std::flush;
     dest = map.key(dest);
 
     Utils().translate(selection.toStdString(), dest, src);
-
     struct result result = Utils().getResult();
 
 

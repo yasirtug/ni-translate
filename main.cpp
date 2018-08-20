@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include <QSettings>
-
+#include <iostream>
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -11,5 +11,12 @@ int main(int argc, char *argv[])
 
     MainWindow w;
     w.show();
+    int width = QSettings().value("windowWidth").toInt();
+    int height = QSettings().value("windowHeight").toInt();
+    if(width && height)
+    {
+        w.resize(width, height);
+    }
+
     return a.exec();
 }
