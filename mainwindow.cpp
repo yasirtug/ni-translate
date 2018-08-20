@@ -5,11 +5,7 @@
 #include <QClipboard>
 #include <keycatcher.h>
 #include "utils.h"
-#include <QDebug>
-#include <iostream>
 #include <QSettings>
-#include <QStringList>
-#include <QProcess>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),

@@ -1,5 +1,4 @@
 #include "utils.h"
-#include <iostream>
 #include <map>
 #include <string>
 
@@ -42,7 +41,6 @@ void Utils::translate(std::string text, std::string dest, std::string src)
     fprintf(ask, "%s\n%s\n%s", dest.c_str(), src.c_str(), text.c_str());
     fclose(ask);
 
-    std::cout << "timer basladi\n" << std::flush;
     std::string cmd = PYTHON_PATH " " + exe_path +  "translate.py";
     system(cmd.c_str());
 }
