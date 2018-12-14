@@ -3,6 +3,9 @@ It also needs python3 in PATH to run.
 
 Build Steps:
 
+Install qmake and base Qt 5 development files:\
+`sudo apt-get install qt5-default`\
+
 Create a folder for build files and `cd` into it.\
 Run this from your folder:\
 `qmake <project_files_folder>/ni-translate.pro -spec linux-g++`\
