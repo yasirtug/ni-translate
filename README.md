@@ -14,3 +14,5 @@ Copy language_list, translate.py files and googletrans folder into your build fo
 
 Google Translate part credit:\
 https://github.com/ssut/py-googletrans
+
+![Screenshot](screenshot.png)
