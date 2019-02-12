@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <sys/file.h>
 #include <QSettings>
+#include <stdio.h>
 
 #define GREP_PATH "grep"
 
