@@ -1,7 +1,7 @@
 #include "settingswindow.h"
 #include "ui_settingswindow.h"
 #include <QSettings>
-#include "utils.h"
+#include "translator.h"
 #include "keycatcher.h"
 
 SettingsWindow::SettingsWindow(QWidget *parent) :

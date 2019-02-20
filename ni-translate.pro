@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT       += network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -27,14 +28,15 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     keycatcher.cpp \
-    utils.cpp \
-    settingswindow.cpp
+    settingswindow.cpp \
+    translator.cpp
 
 HEADERS += \
         mainwindow.h \
     keycatcher.h \
-    utils.h \
     settingswindow.h \
+    languages.h \
+    translator.h
 
 
 FORMS += \

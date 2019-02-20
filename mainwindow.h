@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QMap>
 #include <settingswindow.h>
+#include "translator.h"
 
 namespace Ui {
 class MainWindow;
@@ -14,15 +15,17 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void setText(QString text);
-    QMap<std::string, std::string> map;
+    QMap<QString, QString> map;
     SettingsWindow *sw;
+    Translator *translator;
 public slots:
-    void call();
-    void srcBoxChange(QString);
-    void destBoxChange(QString);
+    void translate();
+    void translationCompleted(QString result);
+    void srcBoxChange(int);
+    void destBoxChange(int);
     void swapButtonClicked(bool);
     void settingsButtonClicked(bool);
 signals:

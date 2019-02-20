@@ -25,11 +25,6 @@
           <height>16777215</height>
          </size>
         </property>
-        <item>
-         <property name="text">
-          <string>&lt;auto&gt;</string>
-         </property>
-        </item>
        </widget>
       </item>
       <item>

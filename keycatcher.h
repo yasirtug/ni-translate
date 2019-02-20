@@ -7,11 +7,11 @@ class KeyCatcher : public QObject
 {
     Q_OBJECT
 public:
-    KeyCatcher();
-    std::string keyboard_path;
+    explicit KeyCatcher(QObject *parent = nullptr);
+
     int getKeyCode();
 private:
-    std::string find_path();
+    char *keyboard_path;
 signals:
     void call();
     void finished();

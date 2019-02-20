@@ -4,42 +4,46 @@
 #include <QApplication>
 #include <QClipboard>
 #include <keycatcher.h>
-#include "utils.h"
+#include "translator.h"
 #include <QSettings>
+#include <languages.h>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
     sw = new SettingsWindow();
     sw->setWindowModality(Qt::ApplicationModal);
     QThread* thread = new QThread;
     KeyCatcher* catcher = new KeyCatcher();
     catcher->moveToThread(thread);
-    connect(catcher, SIGNAL(call()), this, SLOT(call()));
+    connect(catcher, SIGNAL(call()), this, SLOT(translate()));
     connect(thread, SIGNAL (started()), catcher, SLOT (process()));
     connect(catcher, SIGNAL (finished()), thread, SLOT (quit()));
     connect(catcher , SIGNAL (finished()), catcher, SLOT (deleteLater()));
     connect(thread, SIGNAL (finished()), thread, SLOT (deleteLater()));
     thread->start();
 
-    map = Utils().getLanguages();
-    int length = map.size();
-    for(int i = 0; i < length; ++i)
-    {
-        this->ui->srcBox->addItem(QString::fromStdString(map.values()[i]));
-        this->ui->destBox->addItem(QString::fromStdString(map.values()[i]));
-    }
-    map.insert("auto", "<auto>");
-    QString src = QSettings().value("src").toString();
-    QString dest = QSettings().value("dest").toString();
+    translator = new Translator();
+    connect(translator, SIGNAL(translationCompleted(QString)),this, SLOT(translationCompleted(QString)));
 
-    this->ui->srcBox->setCurrentText(src);
-    this->ui->destBox->setCurrentText(dest);
-    connect(this->ui->srcBox, SIGNAL(currentTextChanged(QString)), this, SLOT(srcBoxChange(QString)));
-    connect(this->ui->destBox, SIGNAL(currentTextChanged(QString)), this, SLOT(destBoxChange(QString)));
+    map = {LANGUAGES};
+
+    int length = map.size();
+    this->ui->srcBox->addItem(map.keys()[0]);
+    for(int i = 1; i < length; ++i)
+    {
+        this->ui->srcBox->addItem(map.keys()[i]);
+        this->ui->destBox->addItem(map.keys()[i]);
+    }
+    int src = QSettings().value("src").toInt();
+    int dest = QSettings().value("dest").toInt();
+    this->ui->srcBox->setCurrentIndex(src);
+    this->ui->destBox->setCurrentIndex(dest);
+
+    connect(this->ui->srcBox, SIGNAL(currentIndexChanged(int)), this, SLOT(srcBoxChange(int)));
+    connect(this->ui->destBox, SIGNAL(currentIndexChanged(int)), this, SLOT(destBoxChange(int)));
     connect(this->ui->swapButton, SIGNAL(clicked(bool)), this, SLOT(swapButtonClicked(bool)));
     connect(this->ui->settingsButton, SIGNAL(clicked(bool)), this, SLOT(settingsButtonClicked(bool)));
 }
@@ -50,14 +54,16 @@ void MainWindow::settingsButtonClicked(bool)
     sw->currentSizeInformation(this->width(), this->height());
 }
 
-void MainWindow::srcBoxChange(QString text)
+void MainWindow::srcBoxChange(int index)
 {
-    QSettings().setValue("src", text);
+    QSettings().setValue("src", index);
+    translate();
 }
 
-void MainWindow::destBoxChange(QString text)
+void MainWindow::destBoxChange(int index)
 {
-    QSettings().setValue("dest", text);
+    QSettings().setValue("dest", index);
+    translate();
 }
 
 void MainWindow::swapButtonClicked(bool)
@@ -66,28 +72,24 @@ void MainWindow::swapButtonClicked(bool)
     temp = this->ui->srcBox->currentIndex();
     this->ui->srcBox->setCurrentIndex(this->ui->destBox->currentIndex() + 1);
     this->ui->destBox->setCurrentIndex(temp - 1);
+    translate();
 }
-
-void MainWindow::call()
+void MainWindow::translate()
 {
     QString selection = QApplication::clipboard()->text(QClipboard::Selection);
 
-    std::string src = this->ui->srcBox->currentText().toStdString();
-    std::string dest = this->ui->destBox->currentText().toStdString();
-
-    src = map.key(src);
-    dest = map.key(dest);
-
-    Utils().translate(selection.toStdString(), dest, src);
-    struct result result = Utils().getResult();
-
-
-    this->ui->resultText->setText(result.text);
-
+    int srcIndex = this->ui->srcBox->currentIndex();
+    int destIndex = this->ui->destBox->currentIndex();
+    QList<QString> values = map.values();
+    translator->translate(selection, values[srcIndex], values[destIndex + 1]);
+}
+void MainWindow::translationCompleted(QString result)
+{
+    result.push_front("<html>");
+    this->ui->resultText->setText(result);
     this->show();
     this->raise();
 }
-
 MainWindow::~MainWindow()
 {
     delete ui;
