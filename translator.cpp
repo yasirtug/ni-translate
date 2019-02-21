@@ -20,7 +20,7 @@ void Translator::translate(QString text, QString src, QString dest)
 {
     disconnect(connection);
     text = QUrl::toPercentEncoding(text);
-    QString urlString = QString("%1%2%3%4%6%7").arg(TRANSLATE_DOMAIN, "/m?tl=", dest, "&sl=", src, "&q=", text);
+    QString urlString = QString("%1%2%3%4%6%7%8").arg(TRANSLATE_DOMAIN, "/m?tl=", dest, "&sl=", src, "&q=", text);
 
     QUrl url(urlString);
     QNetworkRequest request(url);
