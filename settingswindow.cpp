@@ -9,13 +9,13 @@ SettingsWindow::SettingsWindow(QWidget *parent) :
     ui(new Ui::SettingsWindow)
 {
     ui->setupUi(this);
-    int key = QSettings().value("key").toInt();
-    this->ui->selectedKey->setText(QString::number(key));
     connect(this->ui->setWindowSize, SIGNAL(clicked(bool)), this, SLOT(setDefaultSize()));
     connect(this->ui->selectKey, SIGNAL(pressed()), this, SLOT(selectKey()));
 }
-void SettingsWindow::currentSizeInformation(int w, int h)
+void SettingsWindow::update(int w, int h)
 {
+    int key = QSettings().value("key").toInt();
+    this->ui->selectedKey->setText(QString::number(key));
     this->w = w;
     this->h = h;
 }

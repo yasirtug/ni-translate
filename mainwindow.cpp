@@ -51,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent) :
 void MainWindow::settingsButtonClicked(bool)
 {
     sw->show();
-    sw->currentSizeInformation(this->width(), this->height());
+    sw->update(this->width(), this->height());
 }
 
 void MainWindow::srcBoxChange(int index)

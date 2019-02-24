@@ -14,7 +14,7 @@ class SettingsWindow : public QWidget
 public:
     explicit SettingsWindow(QWidget *parent = nullptr);
     ~SettingsWindow();
-    void currentSizeInformation(int, int);
+    void update(int, int);
     int w, h;
 private:
     Ui::SettingsWindow *ui;

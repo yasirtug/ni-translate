@@ -13,6 +13,10 @@ int main(int argc, char *argv[])
     w.show();
     int width = QSettings().value("windowWidth").toInt();
     int height = QSettings().value("windowHeight").toInt();
+    if(QSettings().value("key") == 0)
+    {
+        QSettings().setValue("key", 58);
+    }
     if(width && height)
     {
         w.resize(width, height);
