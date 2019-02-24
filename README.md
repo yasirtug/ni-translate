@@ -14,6 +14,6 @@ Run this from your folder:\
 This should have extracted Makefile in your build folder. Run `make` there.
 
 
-To install, run sudo <project_files_folder>/INSTALL.sh from the build folder.\
-This will create a new service, copy ni-translate executable file into /usr/bin/ and enable the service.\
+To install, run sudo `<project_files_folder>/INSTALL.sh` from the build folder.\
+This will create a new service, copy `ni-translate` executable file into `/usr/bin/` and enable the service.\
 It will also start the service and program will appear. Default hotkey is Caps Lock key.
