@@ -10,6 +10,8 @@ StartLimitIntervalSec=0
 Environment="DISPLAY=:0"
 Environment="XAUTHORITY=$XAUTHORITY"
 User=root
+Restart=always
+RestartSec=5
 ExecStart=/usr/bin/env ni-translate
 
 [Install]
