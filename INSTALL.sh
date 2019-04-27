@@ -1,3 +1,4 @@
+ #!/bin/bash
 # will create a new service, copy ni-translate executable file into /usr/bin/ and start the service.
 
 # check for running as root
