@@ -2,9 +2,9 @@
 # will create a new service, copy ni-translate executable file into /usr/bin/ and start the service.
 
 # check for running as root
-if [ "$EUID" -ne 0 ]
-  then echo "Please run as root"
-  exit
+if ! [ $(id -u) = 0 ]; then
+   echo "Please run as root!"
+   exit 1
 fi
 
 cat > /etc/systemd/system/ni-translate.service << EOF1
