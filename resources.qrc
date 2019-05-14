@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>settings.png</file>
         <file>swap.png</file>
+        <file>icon.png</file>
     </qresource>
 </RCC>

@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    setWindowIcon(QIcon(":/icon.png"));
     ui->setupUi(this);
     sw = new SettingsWindow();
     sw->setWindowModality(Qt::ApplicationModal);
