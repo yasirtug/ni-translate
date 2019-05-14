@@ -3,7 +3,7 @@
 
 # check for running as root
 if ! [ $(id -u) = 0 ]; then
-   echo "Please run as root!"
+   echo "Please run as root."
    exit 1
 fi
 
