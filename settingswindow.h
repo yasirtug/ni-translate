@@ -2,6 +2,7 @@
 #define SETTINGSWINDOW_H
 
 #include <QWidget>
+#include <QKeyEvent>
 
 namespace Ui {
 class SettingsWindow;
@@ -18,6 +19,7 @@ public:
     int w, h;
 private:
     Ui::SettingsWindow *ui;
+    void keyPressEvent(QKeyEvent *event);
 signals:
 
 public slots:

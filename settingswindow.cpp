@@ -33,6 +33,13 @@ void SettingsWindow::setDefaultSize()
     QSettings().setValue("windowHeight", h);
 }
 
+void SettingsWindow::keyPressEvent(QKeyEvent *event)
+{
+    if(event->key() == Qt::Key_Escape)
+    {
+        this->close();
+    }
+}
 SettingsWindow::~SettingsWindow()
 {
     delete ui;

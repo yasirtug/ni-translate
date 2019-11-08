@@ -48,7 +48,13 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this->ui->swapButton, SIGNAL(clicked(bool)), this, SLOT(swapButtonClicked(bool)));
     connect(this->ui->settingsButton, SIGNAL(clicked(bool)), this, SLOT(settingsButtonClicked(bool)));
 }
-
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    if(event->key() == Qt::Key_Escape)
+    {
+        this->close();
+    }
+}
 void MainWindow::settingsButtonClicked(bool)
 {
     sw->show();
@@ -90,6 +96,7 @@ void MainWindow::translationCompleted(QString result)
     this->ui->resultText->setText(result);
     this->show();
     this->raise();
+    this->activateWindow();
 }
 MainWindow::~MainWindow()
 {

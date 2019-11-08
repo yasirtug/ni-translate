@@ -5,6 +5,7 @@
 #include <QMap>
 #include <settingswindow.h>
 #include "translator.h"
+#include <QKeyEvent>
 
 namespace Ui {
 class MainWindow;
@@ -30,6 +31,7 @@ public slots:
     void settingsButtonClicked(bool);
 signals:
 private:
+    void keyPressEvent(QKeyEvent *event);
     Ui::MainWindow *ui;
 };
 
