@@ -46,4 +46,7 @@ FORMS += \
 RESOURCES += \
     resources.qrc
 
+LIBS += \
+    -lX11 -lXi
+    
 CONFIG += c++14

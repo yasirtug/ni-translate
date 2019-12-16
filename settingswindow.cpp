@@ -22,7 +22,7 @@ void SettingsWindow::update(int w, int h)
 
 void SettingsWindow::selectKey()
 {
-    int key = KeyCatcher().getKeyCode();
+    int key = KeyCatcher().getKeyEvent().detail;
     QSettings().setValue("key", key);
     this->ui->selectedKey->setText(QString::number(key));
 }

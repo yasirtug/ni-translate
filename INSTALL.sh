@@ -1,29 +1,24 @@
- #!/bin/bash
-# will create a new service, copy ni-translate executable file into /usr/bin/ and start the service.
+#!/bin/bash
 
-# check for running as root
-if ! [ $(id -u) = 0 ]; then
-   echo "Please run as root."
-   exit 1
+# check if running as root
+if [ $(id -u) = 0 ]; 
+then
+	echo "Please run without root privileges."
+	exit 1
 fi
 
-cat > /etc/systemd/system/ni-translate.service << EOF1
-[Unit]
-Description=ni-translate service/
-After=x11-common
-StartLimitIntervalSec=0
-
-[Service]
-Environment="DISPLAY=:0"
-Environment="XAUTHORITY=$XAUTHORITY"
-User=root
-Restart=always
-RestartSec=5
-ExecStart=/usr/bin/env ni-translate
-
-[Install]
-WantedBy = multi-user.target
+# create autostart file
+cat > $HOME/.config/autostart/ni-translate.desktop << EOF1
+[Desktop Entry]
+Type=Application
+Terminal=false
+Exec=~/.local/bin/ni-translate
+Name=ni-translate
 EOF1
-cp ./ni-translate /usr/bin/
-systemctl enable ni-translate.service
-systemctl start ni-translate.service
+
+# copy executable file
+mkdir -p $HOME/.local $HOME/.local/bin 
+cp -r ./ni-translate $HOME/.local/bin
+
+# run file
+$HOME/.local/bin/ni-translate &

@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 
     if(QSettings().contains("key") == false)
     {
-        QSettings().setValue("key", 58);
+        QSettings().setValue("key", 66);
     }
     if(width && height)
     {

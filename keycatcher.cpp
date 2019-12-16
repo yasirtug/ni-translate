@@ -1,40 +1,38 @@
 #include "keycatcher.h"
-#include <linux/input.h>
-#include <unistd.h>
-#include <sys/file.h>
 #include <QSettings>
-#include <stdio.h>
 
-#define GREP_PATH "grep"
-#define MAX_PATH_SIZE 100
 
 KeyCatcher::KeyCatcher(QObject *parent) : QObject (parent)
 {
-    keyboard_path = new char[MAX_PATH_SIZE];
-    int cursor = sprintf(keyboard_path, "%s", "/dev/input/");
-    const char *cmd = GREP_PATH " -E 'Handlers|EV=' /proc/bus/input/devices | "
-            GREP_PATH " -B1 'EV=1[02]001[3Ff]' | " GREP_PATH " -Eo 'event[0-9]+' ";
+    display = XOpenDisplay(NULL);
+    Window win = DefaultRootWindow(display);
 
-    FILE *pipe = popen(cmd, "r");
-    fscanf(pipe, "%s", keyboard_path + cursor);
+    XIEventMask m;
+    m.deviceid = XIAllDevices;
+    m.mask_len = XIMaskLen(XI_LASTEVENT);
+    m.mask = (unsigned char *)calloc(m.mask_len, sizeof(char));
+    XISetMask(m.mask, XI_KeyPress);
+
+    XISelectEvents(display, win, &m, 1);
+    free(m.mask);
+
+    int xi_opcode, event, error;
+    XQueryExtension(display, "XInputExtension", &xi_opcode, &event, &error);
+
 }
 
-void KeyCatcher::process()
+void KeyCatcher::keyCatcherLoop()
 {
-    int fl = open(keyboard_path, O_RDONLY);
-    input_event event;
     bool combo = false;
     __time_t t = 0;
     int key;
-    while (read(fl, &event, sizeof event))
+    while (1)
     {
-        // if event is not key down event
-        if (event.type != EV_KEY || event.value != 1)
-            continue;
         key = QSettings().value("key").toInt();
-        if (event.code == key)
+        XIRawEvent event = getKeyEvent();
+        if (event.detail == key)
         {
-            if (combo == true && event.time.tv_sec - t < 2)
+            if (combo == true && event.time - t < 2000)
             {
                 call();
                 combo = false;
@@ -42,27 +40,22 @@ void KeyCatcher::process()
             else
             {
                 combo = true;
-                t = event.time.tv_sec;
+                t = event.time;
             }
         }
         else
-        {
             combo = false;
-        }
     }
 }
 
 
-int KeyCatcher::getKeyCode()
+XIRawEvent KeyCatcher::getKeyEvent()
 {
-    int fl = open(keyboard_path, O_RDONLY);
-    input_event event;
-    while(read(fl, &event, sizeof event))
-    {
-        if (event.type != EV_KEY || event.value != 1)
-            continue;
-        else
-            break;
-    }
-    return event.code;
+    XEvent ev;
+    XGenericEventCookie *cookie = (XGenericEventCookie *)&ev.xcookie;
+    XNextEvent(display, &ev);
+    XGetEventData(display, cookie);
+    XIRawEvent result =  *((XIRawEvent *)cookie->data);
+    XFreeEventData(display, cookie);
+    return result;
 }

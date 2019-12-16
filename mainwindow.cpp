@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
     KeyCatcher* catcher = new KeyCatcher();
     catcher->moveToThread(thread);
     connect(catcher, SIGNAL(call()), this, SLOT(translate()));
-    connect(thread, SIGNAL (started()), catcher, SLOT (process()));
+    connect(thread, SIGNAL (started()), catcher, SLOT (keyCatcherLoop()));
     connect(catcher, SIGNAL (finished()), thread, SLOT (quit()));
     connect(catcher , SIGNAL (finished()), catcher, SLOT (deleteLater()));
     connect(thread, SIGNAL (finished()), thread, SLOT (deleteLater()));
