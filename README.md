@@ -2,13 +2,15 @@
 
 ![Screenshot](screenshot.png)
 
-Because of the background keyboard watching, it needs to run with root privileges.
-
 ## Build Steps:
 ### 1. Install dependencies:
 - Install qmake and base Qt5 development files:
 
     `sudo apt-get install qt5-default`
+    
+- Install XInput2 extension:
+
+    `sudo apt-get install libxi-dev`
 
 ## 2. Build project:
 
@@ -21,11 +23,10 @@ Because of the background keyboard watching, it needs to run with root privilege
 - Run `make` there.
 
 ## 3. Install:
-- To install, run this from the build folder.
+- To install, run this from the build folder:
 
-    `sudo <project_files_folder>/INSTALL.sh`
+    `<project_files_folder>/INSTALL.sh`
+    
+    This will create a desktop file in `~/.config/autostart`, copy executable file into `~/.local/bin` and run the program for the first time.
 
-- This will create a new service, copy `ni-translate` executable file into `/usr/bin/` and enable the service.
-
-- It will also start the service and program will appear.
-- Default hotkey is Caps Lock key.
+Default hotkey is Caps Lock key.
