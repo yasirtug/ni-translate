@@ -8,13 +8,11 @@ then
 fi
 
 # create autostart file
-cat > $HOME/.config/autostart/ni-translate.desktop << EOF1
-[Desktop Entry]
+echo "[Desktop Entry]
 Type=Application
 Terminal=false
-Exec=~/.local/bin/ni-translate
-Name=ni-translate
-EOF1
+Exec=$HOME/.local/bin/ni-translate
+Name=ni-translate" >> $HOME/.config/autostart/ni-translate.desktop
 
 # copy executable file
 mkdir -p $HOME/.local $HOME/.local/bin 
