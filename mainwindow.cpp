@@ -47,6 +47,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this->ui->destBox, SIGNAL(currentIndexChanged(int)), this, SLOT(destBoxChange(int)));
     connect(this->ui->swapButton, SIGNAL(clicked(bool)), this, SLOT(swapButtonClicked(bool)));
     connect(this->ui->settingsButton, SIGNAL(clicked(bool)), this, SLOT(settingsButtonClicked(bool)));
+
+    this->move(QApplication::primaryScreen()->geometry().center() - this->geometry().center());
 }
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
@@ -94,6 +96,10 @@ void MainWindow::translationCompleted(QString result)
 {
     result.push_front("<html>");
     this->ui->resultText->setText(result);
+    if(!this->isActiveWindow())
+    {
+        this->setVisible(false);
+    }
     this->show();
     this->raise();
     this->activateWindow();
