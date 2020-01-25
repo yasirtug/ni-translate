@@ -7,6 +7,7 @@
 #include "translator.h"
 #include <QSettings>
 #include <languages.h>
+#include <QScreen>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
