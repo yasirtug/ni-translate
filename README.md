@@ -50,6 +50,6 @@ There is also an experimantal OCR feature implemented using [Tesseract](https://
     
     `make`
     
-Language files you installed will be available to select in settings menu
+Language files you installed will be available to select in the settings menu.
 
 `sudo apt-get install tesseract-ocr-jpn`
