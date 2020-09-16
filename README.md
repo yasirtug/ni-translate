@@ -1,6 +1,6 @@
 # ni-translate
 
-![Screenshot](screenshot.png)
+![](action.gif)
 
 ## Build Steps:
 ### 1. Install dependencies:
@@ -23,10 +23,31 @@
 - Run `make` there.
 
 ## 3. Install:
+
 - To install, run this from the build folder:
 
     `<project_files_folder>/INSTALL.sh`
     
     This will create a desktop file in `~/.config/autostart`, copy executable file into `~/.local/bin` and run the program for the first time.
 
-Default hotkey is Caps Lock key.
+Default hotkey should be Caps Lock. You can change it from the settings menu.
+
+## OCR
+
+![](ocr_action.gif)
+
+There is also an experimantal OCR feature implemented using [Tesseract](https://github.com/tesseract-ocr/tesseract). 
+
+- To enable it, you should install libtesseract and build the project with `ocr` config:
+
+    `sudo apt-get install libtesseract-dev`
+    `qmake <project_files_folder>/ni-translate.pro -spec linux-g++ -config ocr`
+
+- It may be necessary to force rebuild after config change:
+    
+    `make clean`
+    `make`
+    
+- Language files you installed will be available to select in settings menu
+
+    `sudo apt-get install tesseract-ocr-jpn`

@@ -23,30 +23,38 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+INCLUDEPATH += include/
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
-    keycatcher.cpp \
-    settingswindow.cpp \
-    translator.cpp
+    src/main.cpp \
+    src/mainwindow.cpp \
+    src/keycatcher.cpp \
+    src/settingswindow.cpp \
+    src/translator.cpp
 
 HEADERS += \
-        mainwindow.h \
-    keycatcher.h \
-    settingswindow.h \
-    languages.h \
-    translator.h
-
+    include/mainwindow.h \
+    include/keycatcher.h \
+    include/settingswindow.h \
+    include/languages.h \
+    include/translator.h
+#CONFIG += ocr
+ocr {
+    DEFINES += OCR
+    SOURCES += src/QuickEditor.cpp
+    HEADERS += include/QuickEditor.h
+    LIBS += -ltesseract
+}
 
 FORMS += \
-        mainwindow.ui \
-    settingswindow.ui \
+    include/mainwindow.ui \
+    include/settingswindow.ui \
 
 RESOURCES += \
-    resources.qrc
+    resources/resources.qrc
 
 LIBS += \
     -lX11 -lXi
-    
-CONFIG += c++14
+
+CONFIG += \
+    c++14 \
