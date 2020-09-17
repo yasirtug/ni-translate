@@ -28,7 +28,7 @@ cp -r ./ni-translate $HOME/.local/bin
 
 # copy icon file
 mkdir -p $HOME/.local/share/icons
-cp $SCRIPT_DIR/icon.png $HOME/.local/share/icons/ni-translate.png
+cp $SCRIPT_DIR/resources/icon.png $HOME/.local/share/icons/ni-translate.png
 
 # run file
 $HOME/.local/bin/ni-translate &
