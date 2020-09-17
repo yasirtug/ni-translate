@@ -171,7 +171,7 @@ void MainWindow::translationCompleted(QString result)
 #ifdef OCR
 void MainWindow::grabScreen()
 {
-    QScreen *screen =  window()->screen();
+    QScreen *screen =  this->windowHandle()->screen();
     mPixmap = screen->grabWindow(0);
     if(!mQuickEditor) {
         mQuickEditor = std::make_unique<QuickEditor>(mPixmap);
