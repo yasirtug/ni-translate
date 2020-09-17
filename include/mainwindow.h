@@ -18,6 +18,7 @@
 #include <iostream>
 #include <algorithm>
 #include <QPalette>
+#include <memory>
 
 #ifdef OCR
 #include "tesseract/baseapi.h"
