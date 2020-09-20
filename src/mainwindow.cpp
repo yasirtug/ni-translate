@@ -190,6 +190,7 @@ void MainWindow::grapCompleted(const QPixmap &result)
     mQuickEditor.reset(nullptr);
     QImage i = result.toImage();
     tesseractAPI->SetImage(i.constBits() ,i.width(), i.height(), 4, i.bytesPerLine());
+    tesseractAPI->SetSourceResolution(70);
     char* resultText = tesseractAPI->GetUTF8Text();
     tesseractResult = resultText;
     delete [] resultText;
