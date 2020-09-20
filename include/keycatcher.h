@@ -28,7 +28,6 @@ public:
     static void removeKey(int);
     static QString getKeyName(int);
 private:
-    char *keyboard_path;
     Display *display;
     static QSet<int> keysToCatch;
 signals:

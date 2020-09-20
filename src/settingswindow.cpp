@@ -3,8 +3,6 @@
 #include <QSettings>
 #include "translator.h"
 #include "keycatcher.h"
-#include "iostream"
-
 
 SettingsWindow::SettingsWindow(QWidget *parent) :
     QWidget(parent),
