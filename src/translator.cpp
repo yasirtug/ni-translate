@@ -67,5 +67,9 @@ void Translator::translate(QString text, QString src, QString dest)
     disconnect(finishedSigConnection);
     disconnect(errorSigConnection);
     finishedSigConnection = connect(reply, &QNetworkReply::readyRead, this, &Translator::getResult);
+#if QT_VERSION < QT_VERSION_CHECK(5, 15, 0)
+    errorSigConnection = connect(reply, &QNetworkReply::error, this, &Translator::getError);
+#else
     errorSigConnection = connect(reply, &QNetworkReply::errorOccurred, this, &Translator::getError);
+#endif
 }

@@ -6,6 +6,7 @@
 #include <QNetworkReply>
 #include <QIODevice>
 #include <QMap>
+#include <QtGlobal>
 
 class Translator : public QObject
 {
