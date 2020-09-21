@@ -40,14 +40,13 @@ There is also an experimantal OCR feature implemented using [Tesseract](https://
 
 - To enable it, you should install libtesseract and build the project with `ocr` config:
 
-    `sudo apt-get install libtesseract-dev`
-    
+    `sudo apt-get install libtesseract-dev`\
+    `sudo apt-get install tesseract-ocr-eng`\
     `qmake <project_files_folder>/ni-translate.pro -spec linux-g++ -config ocr`
 
 - It may be necessary to force rebuild after config change:
     
-    `make clean`
-    
+    `make clean`\
     `make`
     
 Language files you installed will be available to select in the settings menu.
