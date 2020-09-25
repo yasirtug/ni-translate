@@ -65,7 +65,8 @@ private:
     QPixmap mPixmap;
     QString tesseractResult;
 #ifdef OCR
-    std::unique_ptr<QuickEditor> mQuickEditor;
+    void showQuickEditor();
+    QuickEditor *mQuickEditor = nullptr;
     tesseract::TessBaseAPI *tesseractAPI;
     void grabScreen();
 #endif

@@ -64,6 +64,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->ui->inputField->setFocus();
 }
+
 void MainWindow::matchIconsToPallete()
 {
     QColor color = QGuiApplication::palette().text().color();
@@ -82,6 +83,7 @@ void MainWindow::matchIconsToPallete()
     this->ui->swapButton->setIcon(swapIcon);
     this->ui->settingsButton->setIcon(settingsIcon);
 }
+
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     if(event->key() == Qt::Key_Escape)
@@ -129,6 +131,7 @@ void MainWindow::swapButtonClicked(bool)
     this->ui->destBox->setCurrentIndex(temp - 1);
     translate(TranslateOption::Input);
 }
+
 void MainWindow::catchedKey(int key)
 {
     QSettings().sync();
@@ -169,25 +172,36 @@ void MainWindow::translationCompleted(QString result)
 }
 
 #ifdef OCR
+void MainWindow::showQuickEditor()
+{
+    if(mQuickEditor && !mQuickEditor->isHidden())
+    {
+        mQuickEditor->close();
+        return;
+    }
+
+    if(mQuickEditor)
+    {
+        mQuickEditor->close();
+        mQuickEditor->deleteLater();
+        mQuickEditor = nullptr;
+    }
+    mQuickEditor = new QuickEditor(mPixmap);
+    connect(mQuickEditor, &QuickEditor::grabDone, this, &MainWindow::grapCompleted);
+    connect(mQuickEditor, &QuickEditor::grabCancelled, this, &MainWindow::grabCanceled);
+    mQuickEditor->show();
+}
+
 void MainWindow::grabScreen()
 {
     QScreen *screen =  this->windowHandle()->screen();
     mPixmap = screen->grabWindow(0);
-    if(!mQuickEditor) {
-        mQuickEditor = std::make_unique<QuickEditor>(mPixmap);
-        connect(mQuickEditor.get(), &QuickEditor::grabDone, this, &MainWindow::grapCompleted);
-        connect(mQuickEditor.get(), &QuickEditor::grabCancelled, this, &MainWindow::grabCanceled);
-        mQuickEditor->show();
-        return;
-    } else {
-        mQuickEditor->hide();
-        mQuickEditor.reset(nullptr);
-    }
+    showQuickEditor();
 }
+
 void MainWindow::grapCompleted(const QPixmap &result)
 {
     mQuickEditor->close();
-    mQuickEditor.reset(nullptr);
     QImage i = result.toImage();
     tesseractAPI->SetImage(i.constBits() ,i.width(), i.height(), 4, i.bytesPerLine());
     tesseractAPI->SetSourceResolution(70);
@@ -201,7 +215,6 @@ void MainWindow::grapCompleted(const QPixmap &result)
 void MainWindow::grabCanceled()
 {
     mQuickEditor->close();
-    mQuickEditor.reset(nullptr);
 }
 #endif
 
@@ -211,6 +224,7 @@ MainWindow::~MainWindow()
     delete translator;
     delete ui;
 #ifdef OCR
+    delete mQuickEditor;
     tesseractAPI->End();
     delete tesseractAPI;
 #endif

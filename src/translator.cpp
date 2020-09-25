@@ -16,7 +16,10 @@ Translator::~Translator()
 void Translator::getResult()
 {
     if(!reply)
+    {
+        translationCompleted("");
         return;
+    }
     QString result = QString(reply->readAll());
     int index = result.indexOf("class=\"t0\">");
     if(index == -1)
