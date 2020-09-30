@@ -1,3 +1,4 @@
+### This project is not being maintained. See [Crow Translate](https://github.com/crow-translate/crow-translate).
 # ni-translate
 
 ![](action.gif)
